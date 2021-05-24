@@ -1,3 +1,4 @@
+import { FormatUtils } from '../utils/format.utils';
 import { Template } from './template';
 
 export class OfflineTemplate extends Template {
@@ -6,9 +7,10 @@ export class OfflineTemplate extends Template {
   }
 
   public getMessage(): string {
+    const { name, lastSeen } = this.data;
     return (
-      `El worker ${this.data.name} está apagado 🚨 \n` +
-      `Ésta fue la última vez que estuvo conectado: ${this.data.lasSeen}` 
+      `El worker *${name}* está *OFFLINE* 🚨 \n` +
+      `Ésta fue la última vez que estuvo conectado: ${FormatUtils.convertTimeStampToDate(lastSeen)}` 
     );
   }
 }
