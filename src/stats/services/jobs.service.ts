@@ -21,10 +21,10 @@ export class JobsService {
   @Cron('0 8 * * *')
   async dailyReport(): Promise<void> {
     for (const name of WORKER_NAMES) {
-      const status = await this.statsService.getWorkerStatus(name);
+      const worker = await this.statsService.getWorkerStatus(name);
 
-      if (status) {
-        this.bot.send(new DailyReportTemplate(status).getMessage());
+      if (worker) {
+        this.bot.send(new DailyReportTemplate(worker).getMessage());
         this.logger.debug(`daily report for worker ${name} was sent`);
       }
     }
@@ -35,10 +35,12 @@ export class JobsService {
   @Cron(CronExpression.EVERY_MINUTE)
   async checkOnlineStatus(): Promise<void> {
     for (const name of WORKER_NAMES) {
-      const status = await this.statsService.getWorkerStatus(name);
+      const worker = await this.statsService.getWorkerStatus(name);
 
-      if (status && !status.online) {
-        this.bot.send(new OfflineTemplate({ name: status.name, lastSeen: status.lastSeen}).getMessage());
+      console.log(worker);
+
+      if (worker && !worker.online) {
+        this.bot.send(new OfflineTemplate({ name: worker.name, lastSeen: worker.lastSeen}).getMessage());
         this.logger.debug(`worker ${name} is offline!!`);
       }
     }
