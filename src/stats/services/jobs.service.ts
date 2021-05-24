@@ -37,8 +37,6 @@ export class JobsService {
     for (const name of WORKER_NAMES) {
       const worker = await this.statsService.getWorkerStatus(name);
 
-      console.log(worker);
-
       if (worker && !worker.online) {
         this.bot.send(new OfflineTemplate({ name: worker.name, lastSeen: worker.lastSeen}).getMessage());
         this.logger.debug(`worker ${name} is offline!!`);
