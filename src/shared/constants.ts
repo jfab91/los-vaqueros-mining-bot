@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 // App Settings
-export const APP_PORT = `${Number(process.env.APP_PORT) || 3000}`
+export const PORT = `${Number(process.env.PORT) || 3000}`
 
 // Telegram 
 export const TELEGRAM_TOKEN = `${process.env.TELEGRAM_TOKEN}`;
