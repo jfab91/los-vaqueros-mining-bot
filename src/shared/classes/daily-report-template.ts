@@ -11,7 +11,7 @@ export class DailyReportTemplate extends Template {
     const { name, online, reportedHashRate, effectiveHashRate, lastSeen } = this.data;
     return (
       `Estas son las estadísticas actuales del worker *${name}* 🤠 \n\n` +
-      `*Estado:* ${online ? `Apagado 😢` : `Encendido 😎`} \n` +
+      `*Estado:* ${online ? `Encendido 😎` : `Apagado 😢`} \n` +
       `*Hashrate reportado:* ${FormatUtils.formatHashRate(reportedHashRate)} \n` +
       `*Hashrate efectivo:* ${FormatUtils.formatHashRate(effectiveHashRate)} \n` +
       `*Último momento activo:* ${FormatUtils.convertTimeStampToDate(lastSeen)}`
