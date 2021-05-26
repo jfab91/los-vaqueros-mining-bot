@@ -16,6 +16,9 @@ export const WALLET_ADDRESS = `${process.env.WALLET_ADDRESS}`;
 // Worker Names
 export const WORKER_NAMES = (`${process.env.WORKER_NAMES}`).split(',');
 
+// Greetings Name
+export const GREETINGS_NAME = `${process.env.GREETINGS_NAME}`;
+
 // Flexpool Endpoints
 
 const formatWorkersEndpoint = () => {
