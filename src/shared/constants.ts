@@ -23,4 +23,5 @@ export const GREETINGS_NAME = `${process.env.GREETINGS_NAME}`;
 
 const formatEndpoint = (endpoint: string) => `${endpoint}`.replace('<wallet>', `${WALLET_ADDRESS}`);
 
-export const GET_WORKERS_ENDPOINT = `${formatEndpoint(process.env.GET_WORKERS_ENDPOINT)}`;
+export const GET_WORKERS_ENDPOINT = formatEndpoint(process.env.GET_WORKERS_ENDPOINT);
+export const GET_WORKER_BALANCE_ENDPOINT = formatEndpoint(process.env.GET_WORKER_BALANCE_ENDPOINT);
