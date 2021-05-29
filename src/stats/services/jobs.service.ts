@@ -5,6 +5,7 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 import { OfflineTemplate } from '../../shared/classes/offline-template';
 import { BotService } from '../../bot/bot.service';
 import { DailyReportTemplate } from '../../shared/classes/daily-report-template';
+import { RigBalanceInfo } from '../../shared/interfaces/rig-balance-info.interface';
 
 @Injectable()
 export class JobsService {
@@ -22,9 +23,13 @@ export class JobsService {
   async dailyReport(): Promise<void> {
     for (const name of WORKER_NAMES) {
       const worker = await this.statsService.getWorkerStatus(name);
+      const balanceInfo: RigBalanceInfo = {
+        balance: await this.statsService.getETHBalance(),
+        ethPrice: await this.statsService.getEthereumUSDValue()
+      };
 
       if (worker) {
-        this.bot.send(new DailyReportTemplate(worker).getMessage());
+        this.bot.send(new DailyReportTemplate({ ...worker, ...balanceInfo}).getMessage());
         this.logger.debug(`daily report for worker ${name} was sent`);
       }
     }
