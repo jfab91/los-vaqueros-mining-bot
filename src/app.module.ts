@@ -3,6 +3,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { BotModule } from './bot/bot.module';
 import { StatsModule } from './stats/stats.module';
 import { SharedModule } from './shared/shared.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -10,5 +11,6 @@ import { SharedModule } from './shared/shared.module';
     BotModule, 
     StatsModule, SharedModule
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
