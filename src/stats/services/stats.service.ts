@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ResumedWorkerStatus } from '../../shared/interfaces/resumed-worker-status.interface';
-import { GET_WORKERS_ENDPOINT } from '../../shared/constants';
+import { GET_WORKERS_ENDPOINT, ETHEREUM_USD_PRICE_ENDPOINT, GET_MINER_BALANCE_ENDPOINT } from '../../shared/constants';
 import { WorkerStatus } from '../interfaces/worker-status.interface';
+import { FormatUtils } from '../../shared/utils/format.utils';
 
 
 @Injectable()
@@ -26,5 +27,38 @@ export class StatsService {
     } catch (error) {
       this.logger.error(error);
     }
-  } 
+  }
+
+  async getETHBalance(): Promise<number> {
+    try {
+      const response: AxiosResponse<MinerBalanceResponse> = await axios.get(GET_MINER_BALANCE_ENDPOINT);
+      const { error, result } = response.data;
+
+      if (response.data.error) {
+        throw new Error(error as string)
+      }
+
+      return FormatUtils.formatEthBalance(result);
+
+    } catch (error) {
+      this.logger.error(error);
+    }
+  }
+  
+  async getEthereumUSDValue(): Promise<number> {
+    try {
+      return (await axios.get(ETHEREUM_USD_PRICE_ENDPOINT) as AxiosResponse<EthereumPriceResponse>).data?.ethereum?.usd
+    } catch (error) {
+      this.logger.error(error);
+    }
+  }
+}
+
+type EthereumPriceResponse = {
+  ethereum: { usd: number };
+}
+
+type MinerBalanceResponse = {
+  error: unknown;
+  result: number;
 }
