@@ -24,4 +24,7 @@ export const GREETINGS_NAME = `${process.env.GREETINGS_NAME}`;
 const formatEndpoint = (endpoint: string) => `${endpoint}`.replace('<wallet>', `${WALLET_ADDRESS}`);
 
 export const GET_WORKERS_ENDPOINT = formatEndpoint(process.env.GET_WORKERS_ENDPOINT);
-export const GET_WORKER_BALANCE_ENDPOINT = formatEndpoint(process.env.GET_WORKER_BALANCE_ENDPOINT);
+export const GET_MINER_BALANCE_ENDPOINT = formatEndpoint(process.env.GET_MINER_BALANCE_ENDPOINT);
+
+// Coin Gecko Endpoints
+export const ETHEREUM_USD_PRICE_ENDPOINT = `${process.env.ETHEREUM_USD_PRICE_ENDPOINT}`;
