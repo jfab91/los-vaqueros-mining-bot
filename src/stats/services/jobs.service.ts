@@ -64,6 +64,7 @@ export class JobsService {
   private sendOfflineMessage(worker: ResumedWorkerStatus, counter: ICounter) {
     if (!counter.reachedMax()) {
       this.bot.send(new OfflineTemplate({ workerName: worker.name, lastSeen: worker.lastSeen}).getMessage());
+      counter.increment();
     }
   }
 
