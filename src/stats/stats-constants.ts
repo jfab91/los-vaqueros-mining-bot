@@ -1,0 +1,1 @@
+export const MESSAGE_COUNTER_PROVIDER = 'message_counter';
